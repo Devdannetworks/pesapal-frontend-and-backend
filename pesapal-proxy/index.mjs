@@ -15,7 +15,7 @@ const callbackUrl = process.env.PESAPAL_CALLBACK_URL;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://pesapal-frontend-and-backend.vercel.app/",
+  "https://pesapal-frontend-and-backend.vercel.app",
   "https://pesapal-frontend-and-backend-server.vercel.app/api/pesapal/callback",
   callbackUrl,
 ];
