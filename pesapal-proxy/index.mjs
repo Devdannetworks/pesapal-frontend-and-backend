@@ -32,6 +32,20 @@ app.use(express.json());
 
 let BEARER_TOKEN = "";
 
+//include pre-flight requests necessary in production
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://pesapal-frontend-and-backend.vercel.app"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  next();
+});
+
 //get the access token
 async function getAccessToken() {
   const authUrl = "https://pay.pesapal.com/v3/api/Auth/RequestToken";
