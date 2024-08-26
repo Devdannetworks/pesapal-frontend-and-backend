@@ -9,7 +9,7 @@ import axios from "axios";
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const API_URL =
-    "https://pesapal-frontend-and-backend-server.vercel.app/" ||
+    "https://pesapal-frontend-and-backend-server.vercel.app" ||
     "http://localhost:3000";
 
   const {
