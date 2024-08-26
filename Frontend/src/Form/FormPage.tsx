@@ -8,7 +8,9 @@ import axios from "axios";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+  const API_URL =
+    "https://pesapal-frontend-and-backend-server.vercel.app/" ||
+    "http://localhost:3000";
 
   const {
     register,

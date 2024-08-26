@@ -15,7 +15,7 @@ const callbackUrl = process.env.PESAPAL_CALLBACK_URL;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://pesapal-api-pi.vercel.app/",
+  "https://pesapal-frontend-and-backend.vercel.app/",
   callbackUrl,
 ];
 
@@ -167,7 +167,10 @@ app.get("/api/pesapal/callback", async (req, res) => {
 
     // Optionally, you could check the status and redirect immediately
     if (status === "Failed") {
-      return res.redirect(`http://localhost:5173/failed/${OrderTrackingId}`);
+      return res.redirect(
+        `http://localhost:5173/failed/${OrderTrackingId}` ||
+          `http://localhost:5173/failed/${OrderTrackingId}`
+      );
     }
 
     const paymentStatusUrl = `https://pay.pesapal.com/v3/api/Transactions/GetTransactionStatus`;
@@ -189,17 +192,30 @@ app.get("/api/pesapal/callback", async (req, res) => {
     // Redirect user based on payment status
     switch (paymentStatus) {
       case "Completed":
-        return res.redirect(`http://localhost:5173/success/${OrderTrackingId}`);
+        return res.redirect(
+          `http://localhost:5173/success/${OrderTrackingId}` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+        );
       case "Failed":
-        return res.redirect(`http://localhost:5173/failed/${OrderTrackingId}`);
+        return res.redirect(
+          `http://localhost:5173/failed/${OrderTrackingId}` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+        );
       case "Reversed":
         return res.redirect(
-          `http://localhost:5173/reversed/${OrderTrackingId}`
+          `http://localhost:5173/reversed/${OrderTrackingId}` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
         );
       case "Invalid":
-        return res.redirect(`http://localhost:5173/invalid/${OrderTrackingId}`);
+        return res.redirect(
+          `http://localhost:5173/invalid/${OrderTrackingId}` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+        );
       default:
-        return res.redirect(`http://localhost:5173`);
+        return res.redirect(
+          `http://localhost:5173` ||
+            "https://pesapal-frontend-and-backend.vercel.app/"
+        );
     }
   } catch (error) {
     console.error("Error in GET callback:", error.message);
@@ -218,7 +234,10 @@ app.post("/api/pesapal/callback", async (req, res) => {
     }
 
     if (status === "Failed") {
-      return res.redirect(`http://localhost:5173/failed/${OrderTrackingId}`);
+      return res.redirect(
+        `http://localhost:5173/failed/${OrderTrackingId}` ||
+          `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+      );
     }
 
     const paymentStatusUrl = `https://pay.pesapal.com/v3/api/Transactions/GetTransactionStatus`;
@@ -240,17 +259,30 @@ app.post("/api/pesapal/callback", async (req, res) => {
     // Redirect user based on payment status
     switch (paymentStatus) {
       case "Completed":
-        return res.redirect(`http://localhost:5173/success/${OrderTrackingId}`);
+        return res.redirect(
+          `http://localhost:5173/success/${OrderTrackingId} ` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+        );
       case "Failed":
-        return res.redirect(`http://localhost:5173/failed/${OrderTrackingId}`);
+        return res.redirect(
+          `http://localhost:5173/failed/${OrderTrackingId}` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+        );
       case "Reversed":
         return res.redirect(
-          `http://localhost:5173/reversed/${OrderTrackingId}`
+          `http://localhost:5173/reversed/${OrderTrackingId}` ||
+            `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
         );
       case "Invalid":
-        return res.redirect(`http://localhost:5173/invalid/${OrderTrackingId}`);
+        return (
+          res.redirect(`http://localhost:5173/invalid/${OrderTrackingId}`) ||
+          `https://pesapal-frontend-and-backend.vercel.app/${OrderTrackingId}`
+        );
       default:
-        return res.redirect(`http://localhost:5173`);
+        return (
+          res.redirect(`http://localhost:5173`) ||
+          `https://pesapal-frontend-and-backend.vercel.app/`
+        );
     }
   } catch (error) {
     console.error("Error in POST callback:", error.message);
